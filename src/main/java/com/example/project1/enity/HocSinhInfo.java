@@ -2,61 +2,69 @@ package com.example.project1.enity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.core.StandardReflectionParameterNameDiscoverer;
 
 import java.util.Date;
 
 @Entity
 @Data
-@Table(name = "student",schema = "luanvan")
+@NoArgsConstructor
+@Table(name = "student", schema = "luanvan")
 public class HocSinhInfo {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+    @Column(name = "ma_hs")
+    private String maHs;
+
     @Column(name = "ho_ten")
-    private String hoten;
+    private String hoTen;
+
     @Column(name = "ngay_sinh")
-    private Date ngaysinh;
+    private Date ngaySinh;
+
     @Column(name = "gioi_tinh")
-    private boolean gioitinh;
+    private boolean gioiTinh;
+
     @Column(name = "cccd")
     private String cccd;
-    @Column(name = "email")
-    private String email;
+
     @Column(name = "hinh_anh")
-    private String hinhanh;
+    private String hinhAnh;
 
     @Column(name = "tinh")
     private String tinh;
+
     @Column(name = "huyen")
     private String huyen;
+
     @Column(name = "xa")
     private String xa;
+
     @Column(name = "noi_sinh")
-    private String noisinh;
+    private String noiSinh;
+
     @Column(name = "thuong_tru")
-    private String thuongtru;
+    private String thuongTru;
+
     @Column(name = "tam_tru")
-    private String tamtru;
+    private String tamTru;
+
     @Column(name = "dan_toc")
-    private String dantoc;
+    private String danToc;
+
     @Column(name = "ton_giao")
-    private String tongiao;
+    private String tonGiao;
 
-    @Column(name = "ma_hs")
-    private String mahs;
-    @Column(name = "ten_lop")
-    private String tenlop;
-    @Column(name = "khoi")
-    private String khoi;
+    @Column(name = "ten_lop",unique = true)
+    private String lop;
+
     @Column(name = "trang_thai")
-    private boolean trangthai;
+    private boolean trangThai;
+
     @Column(name = "nhap_hoc")
-    private Date nhaphoc;
-
-
+    private Date nhapHoc;
 }

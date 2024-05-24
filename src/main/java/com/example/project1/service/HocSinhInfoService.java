@@ -30,25 +30,22 @@ public class HocSinhInfoService {
         Optional<HocSinhInfo> optionalHocSinhInfo = hocSinhInfoRepository.findById(id);
         if (optionalHocSinhInfo.isPresent()) {
             HocSinhInfo existingHocSinhInfo = optionalHocSinhInfo.get();
-            existingHocSinhInfo.setHoten(hocSinhInfoDetails.getHoten());
-            existingHocSinhInfo.setNgaysinh(hocSinhInfoDetails.getNgaysinh());
-            existingHocSinhInfo.setGioitinh(hocSinhInfoDetails.isGioitinh());
+            existingHocSinhInfo.setHoTen(hocSinhInfoDetails.getHoTen());
+            existingHocSinhInfo.setNgaySinh(hocSinhInfoDetails.getNgaySinh());
+            existingHocSinhInfo.setGioiTinh(hocSinhInfoDetails.isGioiTinh());
             existingHocSinhInfo.setCccd(hocSinhInfoDetails.getCccd());
-            existingHocSinhInfo.setEmail(hocSinhInfoDetails.getEmail());
-            existingHocSinhInfo.setHinhanh(hocSinhInfoDetails.getHinhanh());
+            existingHocSinhInfo.setHinhAnh(hocSinhInfoDetails.getHinhAnh());
             existingHocSinhInfo.setTinh(hocSinhInfoDetails.getTinh());
             existingHocSinhInfo.setHuyen(hocSinhInfoDetails.getHuyen());
             existingHocSinhInfo.setXa(hocSinhInfoDetails.getXa());
-            existingHocSinhInfo.setNoisinh(hocSinhInfoDetails.getNoisinh());
-            existingHocSinhInfo.setThuongtru(hocSinhInfoDetails.getThuongtru());
-            existingHocSinhInfo.setTamtru(hocSinhInfoDetails.getTamtru());
-            existingHocSinhInfo.setDantoc(hocSinhInfoDetails.getDantoc());
-            existingHocSinhInfo.setTongiao(hocSinhInfoDetails.getTongiao());
-            existingHocSinhInfo.setMahs(hocSinhInfoDetails.getMahs());
-            existingHocSinhInfo.setTenlop(hocSinhInfoDetails.getTenlop());
-            existingHocSinhInfo.setKhoi(hocSinhInfoDetails.getKhoi());
-            existingHocSinhInfo.setTrangthai(hocSinhInfoDetails.isTrangthai());
-            existingHocSinhInfo.setNhaphoc(hocSinhInfoDetails.getNhaphoc());
+            existingHocSinhInfo.setNoiSinh(hocSinhInfoDetails.getNoiSinh());
+            existingHocSinhInfo.setThuongTru(hocSinhInfoDetails.getThuongTru());
+            existingHocSinhInfo.setTamTru(hocSinhInfoDetails.getTamTru());
+            existingHocSinhInfo.setDanToc(hocSinhInfoDetails.getDanToc());
+            existingHocSinhInfo.setTonGiao(hocSinhInfoDetails.getTonGiao());
+            existingHocSinhInfo.setMaHs(hocSinhInfoDetails.getMaHs());
+            existingHocSinhInfo.setTrangThai(hocSinhInfoDetails.isTrangThai());
+            existingHocSinhInfo.setNhapHoc(hocSinhInfoDetails.getNhapHoc());
             return hocSinhInfoRepository.save(existingHocSinhInfo);
         } else {
             throw new RuntimeException("HocSinhInfo not found with id " + id);

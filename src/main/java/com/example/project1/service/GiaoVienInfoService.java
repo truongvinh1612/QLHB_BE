@@ -1,9 +1,11 @@
 package com.example.project1.service;
 
 import com.example.project1.enity.GiaoVienInfo;
+import com.example.project1.exception.GiaoVienNotFoundException;
 import com.example.project1.repository.GiaoVienInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,8 +13,12 @@ import java.util.Optional;
 @Service
 public class GiaoVienInfoService {
 
+    private final GiaoVienInfoRepository giaoVienInfoRepository;
+
     @Autowired
-    private GiaoVienInfoRepository giaoVienInfoRepository;
+    public GiaoVienInfoService(GiaoVienInfoRepository giaoVienInfoRepository) {
+        this.giaoVienInfoRepository = giaoVienInfoRepository;
+    }
 
     public List<GiaoVienInfo> getAllGiaoVien() {
         return giaoVienInfoRepository.findAll();
@@ -22,38 +28,40 @@ public class GiaoVienInfoService {
         return giaoVienInfoRepository.findById(id);
     }
 
+    @Transactional
     public GiaoVienInfo saveGiaoVien(GiaoVienInfo giaoVienInfo) {
         return giaoVienInfoRepository.save(giaoVienInfo);
     }
 
+    @Transactional
     public GiaoVienInfo updateGiaoVien(Long id, GiaoVienInfo giaoVienInfoDetails) {
-        Optional<GiaoVienInfo> optionalGiaoVienInfo = giaoVienInfoRepository.findById(id);
-        if (optionalGiaoVienInfo.isPresent()) {
-            GiaoVienInfo existingGiaoVienInfo = optionalGiaoVienInfo.get();
-            existingGiaoVienInfo.setHoten(giaoVienInfoDetails.getHoten());
-            existingGiaoVienInfo.setNgaysinh(giaoVienInfoDetails.getNgaysinh());
-            existingGiaoVienInfo.setGioitinh(giaoVienInfoDetails.isGioitinh());
-            existingGiaoVienInfo.setCccd(giaoVienInfoDetails.getCccd());
-            existingGiaoVienInfo.setEmail(giaoVienInfoDetails.getEmail());
-            existingGiaoVienInfo.setHinhanh(giaoVienInfoDetails.getHinhanh());
-            existingGiaoVienInfo.setTinh(giaoVienInfoDetails.getTinh());
-            existingGiaoVienInfo.setHuyen(giaoVienInfoDetails.getHuyen());
-            existingGiaoVienInfo.setXa(giaoVienInfoDetails.getXa());
-            existingGiaoVienInfo.setNoisinh(giaoVienInfoDetails.getNoisinh());
-            existingGiaoVienInfo.setThuongtru(giaoVienInfoDetails.getThuongtru());
-            existingGiaoVienInfo.setTamtru(giaoVienInfoDetails.getTamtru());
-            existingGiaoVienInfo.setDantoc(giaoVienInfoDetails.getDantoc());
-            existingGiaoVienInfo.setTongiao(giaoVienInfoDetails.getTongiao());
-            existingGiaoVienInfo.setMagv(giaoVienInfoDetails.getMagv());
-            existingGiaoVienInfo.setIdlop(giaoVienInfoDetails.getIdlop());
-            existingGiaoVienInfo.setTenlop(giaoVienInfoDetails.getTenlop());
-            return giaoVienInfoRepository.save(existingGiaoVienInfo);
-        } else {
-            throw new RuntimeException("GiaoVienInfo not found with id " + id);
-        }
+        return giaoVienInfoRepository.findById(id)
+                .map(existingGiaoVienInfo -> {
+                    existingGiaoVienInfo.setHoTen(giaoVienInfoDetails.getHoTen());
+                    existingGiaoVienInfo.setNgaySinh(giaoVienInfoDetails.getNgaySinh());
+                    existingGiaoVienInfo.setGioiTinh(giaoVienInfoDetails.isGioiTinh());
+                    existingGiaoVienInfo.setCccd(giaoVienInfoDetails.getCccd());
+                    existingGiaoVienInfo.setEmail(giaoVienInfoDetails.getEmail());
+                    existingGiaoVienInfo.setHinhAnh(giaoVienInfoDetails.getHinhAnh());
+                    existingGiaoVienInfo.setTinh(giaoVienInfoDetails.getTinh());
+                    existingGiaoVienInfo.setHuyen(giaoVienInfoDetails.getHuyen());
+                    existingGiaoVienInfo.setXa(giaoVienInfoDetails.getXa());
+                    existingGiaoVienInfo.setNoiSinh(giaoVienInfoDetails.getNoiSinh());
+                    existingGiaoVienInfo.setThuongTru(giaoVienInfoDetails.getThuongTru());
+                    existingGiaoVienInfo.setTamTru(giaoVienInfoDetails.getTamTru());
+                    existingGiaoVienInfo.setDanToc(giaoVienInfoDetails.getDanToc());
+                    existingGiaoVienInfo.setTonGiao(giaoVienInfoDetails.getTonGiao());
+                    existingGiaoVienInfo.setMaGv(giaoVienInfoDetails.getMaGv());
+                    return giaoVienInfoRepository.save(existingGiaoVienInfo);
+                })
+                .orElseThrow(() -> new GiaoVienNotFoundException("GiaoVienInfo not found with id " + id));
     }
 
+    @Transactional
     public void deleteGiaoVien(Long id) {
+        if (!giaoVienInfoRepository.existsById(id)) {
+            throw new GiaoVienNotFoundException("GiaoVienInfo not found with id " + id);
+        }
         giaoVienInfoRepository.deleteById(id);
     }
 }

@@ -1,7 +1,10 @@
 package com.example.project1.service;
 
+import com.example.project1.enity.GiaoVienInfo;
 import com.example.project1.enity.LopHoc;
+import com.example.project1.repository.GiaoVienInfoRepository;
 import com.example.project1.repository.LopHocRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +15,8 @@ public class LopHocService {
 
     @Autowired
     private LopHocRepository lopHocRepository;
-
+    @Autowired
+private GiaoVienInfoRepository giaoVienInfoRepository;
     public List<LopHoc> getAllLopHoc() {
         return lopHocRepository.findAll();
     }
@@ -28,11 +32,10 @@ public class LopHocService {
     public LopHoc updateLopHoc(Long id, LopHoc lopHocDetails) {
         LopHoc lopHoc = lopHocRepository.findById(id).orElse(null);
         if (lopHoc != null) {
-            lopHoc.setTenlop(lopHocDetails.getTenlop());
+            lopHoc.setTenLop(lopHocDetails.getTenLop());
             lopHoc.setGvcn(lopHocDetails.getGvcn());
-            lopHoc.setMota(lopHocDetails.getMota());
             lopHoc.setSlhs(lopHocDetails.getSlhs());
-            lopHoc.setPhonghoc(lopHocDetails.getPhonghoc());
+            lopHoc.setPhongHoc(lopHocDetails.getPhongHoc());
             return lopHocRepository.save(lopHoc);
         }
         return null;

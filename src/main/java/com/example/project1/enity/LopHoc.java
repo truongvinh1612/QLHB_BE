@@ -1,13 +1,13 @@
 package com.example.project1.enity;
 
+import com.example.project1.enity.GiaoVienInfo;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Data
+@NoArgsConstructor
 @Table(name = "Lop", schema = "luanvan")
 public class LopHoc {
 
@@ -17,20 +17,15 @@ public class LopHoc {
     private Long id;
 
     @Column(name = "ten_lop")
-    private String tenlop;
+    private String tenLop;
 
-    @Column(name = "gvcn")
-    @JoinColumn(name = "magv")
+    @Column(name = "gvcn",unique = true)
     private String gvcn;
-
-    @Column(name = "mo_ta")
-    private  String mota;
 
     @Column(name = "slhs")
     private Long slhs;
 
     @Column(name = "phong_hoc")
-    private String phonghoc;
-
+    private String phongHoc;
 
 }
