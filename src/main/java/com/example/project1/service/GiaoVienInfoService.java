@@ -45,8 +45,6 @@ public class GiaoVienInfoService {
             existingGiaoVienInfo.setDantoc(giaoVienInfoDetails.getDantoc());
             existingGiaoVienInfo.setTongiao(giaoVienInfoDetails.getTongiao());
             existingGiaoVienInfo.setMagv(giaoVienInfoDetails.getMagv());
-            existingGiaoVienInfo.setIdlop(giaoVienInfoDetails.getIdlop());
-            existingGiaoVienInfo.setTenlop(giaoVienInfoDetails.getTenlop());
             return giaoVienInfoRepository.save(existingGiaoVienInfo);
         } else {
             throw new RuntimeException("GiaoVienInfo not found with id " + id);

@@ -14,6 +14,8 @@ public class GiaoVienInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+    @Column(name = "ma_gv",unique = true)
+    private String magv;
     @Column(name = "ho_ten")
     private String hoten;
     @Column(name = "ngay_sinh")
@@ -44,10 +46,7 @@ public class GiaoVienInfo {
     @Column(name = "ton_giao")
     private String tongiao;
 
-    @Column(name = "ma_gv")
-    private String magv;
-    @Column(name = "id_lop")
-    private String idlop;
+
     @Column(name = "trinh_do")
     private String trinhdo;
     @Column(name = "chung_chi_th")

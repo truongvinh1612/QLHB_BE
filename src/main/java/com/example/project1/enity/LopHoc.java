@@ -15,13 +15,12 @@ public class LopHoc {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
     @Column(name = "ten_lop")
     private String tenlop;
-
-    @Column(name = "gvcn")
-    @JoinColumn(name = "magv")
-    private String gvcn;
+//????
+    @OneToOne
+    @JoinColumn(name = "ma_gv")
+    private GiaoVienInfo gvcn;
 
     @Column(name = "mo_ta")
     private  String mota;
