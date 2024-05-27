@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public interface HocSinhInfoRepository extends JpaRepository<HocSinhInfo, Long> {
-    @Query(value = "SELECT * FROM luanvan.hocsinh hs WHERE hs.ho_ten LIKE CONCAT('%', :ten, '%')", nativeQuery = true)
+    @Query(value = "SELECT * FROM luanvan.hocsinh hs WHERE (hs.ho_ten LIKE CONCAT('%', :ten, '%') OR hs.ho_ten IS NULL OR hs.ho_ten LIKE '')", nativeQuery = true)
     List<HocSinhInfo> search(@Param("ten") String ten);
 
 }
