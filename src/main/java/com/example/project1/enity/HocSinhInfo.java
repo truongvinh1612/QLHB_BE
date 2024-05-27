@@ -8,7 +8,6 @@ import java.util.Date;
 
 @Entity
 @Data
-@NoArgsConstructor
 @Table(name = "hocsinh", schema = "luanvan")
 public class HocSinhInfo {
 
@@ -31,9 +30,9 @@ public class HocSinhInfo {
 
     @Column(name = "ma_dinh_danh")
     private String maDinhDanh;
-
-    @Column(name = "hinh_anh")
-    private String hinhAnh;
+    @Lob
+    @Column(name = "hinh_anh", columnDefinition="BLOB")
+    private byte[] hinhAnh;
 
     @Column(name = "tinh")
     private String tinh;

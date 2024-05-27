@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface GiaoVienInfoRepository extends JpaRepository<GiaoVienInfo, Long> {
     Optional<GiaoVienInfo> findByMaGv(String maGv);
-
+    void deleteByMaGv(String maGv);
 }

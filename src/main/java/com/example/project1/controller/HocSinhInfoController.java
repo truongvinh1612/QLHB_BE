@@ -5,11 +5,14 @@ import com.example.project1.enity.HocSinhInfoDTO;
 import com.example.project1.service.HocSinhInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/api/hocsinh")
@@ -29,12 +32,38 @@ public class HocSinhInfoController {
         Optional<HocSinhInfo> hocSinhInfo = hocSinhInfoService.getHocSinhById(id);
         return hocSinhInfo.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
+
     @PostMapping("/add")
     public ResponseEntity<HocSinhInfo> createHocSinh(@RequestBody HocSinhInfoDTO hocSinhInfoDTO) {
         HocSinhInfo hocSinhInfo1 =  hocSinhInfoService.createHocSinhInfo(hocSinhInfoDTO);
         return new ResponseEntity<HocSinhInfo>(hocSinhInfo1, HttpStatus.CREATED);
     }
 
+    @PostMapping("/{id}/upload-image")
+    public ResponseEntity<String> uploadImage(@PathVariable Long id, @RequestParam("image") MultipartFile imageFile) {
+        try {
+            Optional<HocSinhInfo> studentOptional = hocSinhInfoService.getHocSinhById(id);
+            if (studentOptional.isPresent()) {
+                byte[] imageBytes = imageFile.getBytes();
+                HocSinhInfo updatedStudent = hocSinhInfoService.saveStudentWithImage(studentOptional.get(), imageBytes);
+                return ResponseEntity.ok("Image uploaded successfully for student ID: " + updatedStudent.getId());
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error uploading image: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/{id}/image")
+    public ResponseEntity<byte[]> getImage(@PathVariable Long id) {
+        byte[] image = hocSinhInfoService.getStudentImage(id);
+        if (image != null) {
+            return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(image);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
     @PutMapping("/{id}")
     public ResponseEntity<HocSinhInfo> updateHocSinh(@PathVariable Long id, @RequestBody HocSinhInfo hocSinhInfoDetails) {
         HocSinhInfo updatedHocSinhInfo = hocSinhInfoService.updateHocSinhInfo(id, hocSinhInfoDetails);
@@ -49,6 +78,9 @@ public class HocSinhInfoController {
 
 
 
+    @GetMapping("/search")
+    public List<HocSinhInfo> searchHocSinh(@RequestParam String ten) {
 
-
+     return hocSinhInfoService.search(ten);
+    }
 }

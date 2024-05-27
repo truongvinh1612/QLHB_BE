@@ -1,8 +1,12 @@
 package com.example.project1.controller;
 
+import com.example.project1.enity.HocSinhInfo;
+import com.example.project1.enity.HocSinhInfoDTO;
 import com.example.project1.enity.LopHoc;
+import com.example.project1.enity.LopHocDTO;
 import com.example.project1.service.LopHocService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,8 +26,9 @@ public class LopHocController {
     }
 
     @PostMapping("/add")
-    public LopHoc createLopHoc(@RequestBody LopHoc lopHoc) {
-        return lopHocService.saveLopHoc(lopHoc);
+    public ResponseEntity<LopHoc> createLopHoc(@RequestBody LopHocDTO lopHocDTO) {
+        LopHoc lopHoc1 =  lopHocService.createLopHoc(lopHocDTO);
+        return new ResponseEntity<LopHoc>(lopHoc1, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")

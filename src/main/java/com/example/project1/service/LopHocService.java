@@ -2,6 +2,7 @@ package com.example.project1.service;
 
 import com.example.project1.enity.GiaoVienInfo;
 import com.example.project1.enity.LopHoc;
+import com.example.project1.enity.LopHocDTO;
 import com.example.project1.repository.GiaoVienInfoRepository;
 import com.example.project1.repository.LopHocRepository;
 import jakarta.transaction.Transactional;
@@ -21,13 +22,21 @@ private GiaoVienInfoRepository giaoVienInfoRepository;
         return lopHocRepository.findAll();
     }
 
-    public LopHoc saveLopHoc(LopHoc lopHoc) {
-        return lopHocRepository.save(lopHoc);
-    }
-
     public LopHoc getLopHocById(Long id) {
         return lopHocRepository.findById(id).orElse(null);
     }
+
+
+    public LopHoc createLopHoc(LopHocDTO lopHocDTO){
+      LopHoc lopHoc = new LopHoc();
+      lopHoc.setTenLop(lopHocDTO.getTenLop());
+      lopHoc.setGvcn(lopHocDTO.getGvcn());
+      lopHoc.setPhongHoc(lopHocDTO.getPhongHoc());
+      lopHoc.setSlhs(lopHocDTO.getSlhs());
+      LopHoc lopHoc1 = lopHocRepository.save(lopHoc);
+      return lopHoc1;
+    }
+
 
     public LopHoc updateLopHoc(Long id, LopHoc lopHocDetails) {
         LopHoc lopHoc = lopHocRepository.findById(id).orElse(null);

@@ -47,7 +47,15 @@ public class HocSinhInfoService {
         return hocSinhInfo1;
     }
 
+    public HocSinhInfo saveStudentWithImage(HocSinhInfo hocSinhInfo, byte[] image) {
+        hocSinhInfo.setHinhAnh(image);
+        return hocSinhInfoRepository.save(hocSinhInfo);
+    }
 
+    public byte[] getStudentImage(Long id) {
+        Optional<HocSinhInfo> hocSinhInfo = hocSinhInfoRepository.findById(id);
+        return hocSinhInfo.map(HocSinhInfo::getHinhAnh).orElse(null);
+    }
  public HocSinhInfo updateHocSinhInfo(Long id, HocSinhInfo hocSinhInfoDetails) {
         Optional<HocSinhInfo> optionalHocSinhInfo = hocSinhInfoRepository.findById(id);
         if (optionalHocSinhInfo.isPresent()) {
@@ -56,7 +64,6 @@ public class HocSinhInfoService {
             existingHocSinhInfo.setNgaySinh(hocSinhInfoDetails.getNgaySinh());
             existingHocSinhInfo.setGioiTinh(hocSinhInfoDetails.isGioiTinh());
             existingHocSinhInfo.setMaDinhDanh(hocSinhInfoDetails.getMaDinhDanh());
-            existingHocSinhInfo.setHinhAnh(hocSinhInfoDetails.getHinhAnh());
             existingHocSinhInfo.setTinh(hocSinhInfoDetails.getTinh());
             existingHocSinhInfo.setHuyen(hocSinhInfoDetails.getHuyen());
             existingHocSinhInfo.setXa(hocSinhInfoDetails.getXa());
@@ -76,5 +83,9 @@ public class HocSinhInfoService {
 
     public void deleteHocSinhInfo(Long id) {
         hocSinhInfoRepository.deleteById(id);
+    }
+
+    public List<HocSinhInfo> search(String ten) {
+        return hocSinhInfoRepository.search(ten);
     }
 }
