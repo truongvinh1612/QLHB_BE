@@ -9,7 +9,7 @@ import java.util.Date;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "student", schema = "luanvan")
+@Table(name = "hocsinh", schema = "luanvan")
 public class HocSinhInfo {
 
     @Id
@@ -29,8 +29,8 @@ public class HocSinhInfo {
     @Column(name = "gioi_tinh")
     private boolean gioiTinh;
 
-    @Column(name = "cccd")
-    private String cccd;
+    @Column(name = "ma_dinh_danh")
+    private String maDinhDanh;
 
     @Column(name = "hinh_anh")
     private String hinhAnh;

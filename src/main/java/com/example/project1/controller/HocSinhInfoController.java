@@ -1,9 +1,10 @@
 package com.example.project1.controller;
 
-import com.example.project1.enity.GiaoVienInfo;
 import com.example.project1.enity.HocSinhInfo;
+import com.example.project1.enity.HocSinhInfoDTO;
 import com.example.project1.service.HocSinhInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,8 +30,9 @@ public class HocSinhInfoController {
         return hocSinhInfo.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
     @PostMapping("/add")
-    public HocSinhInfo createHocSinh(@RequestBody HocSinhInfo hocSinhInfo) {
-        return hocSinhInfoService.saveHocSinhInfo(hocSinhInfo);
+    public ResponseEntity<HocSinhInfo> createHocSinh(@RequestBody HocSinhInfoDTO hocSinhInfoDTO) {
+        HocSinhInfo hocSinhInfo1 =  hocSinhInfoService.createHocSinhInfo(hocSinhInfoDTO);
+        return new ResponseEntity<HocSinhInfo>(hocSinhInfo1, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
@@ -44,6 +46,9 @@ public class HocSinhInfoController {
         hocSinhInfoService.deleteHocSinhInfo(id);
         return ResponseEntity.noContent().build();
     }
+
+
+
 
 
 }

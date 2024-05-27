@@ -1,6 +1,7 @@
 package com.example.project1.service;
 
 import com.example.project1.enity.HocSinhInfo;
+import com.example.project1.enity.HocSinhInfoDTO;
 import com.example.project1.repository.HocSinhInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,9 +23,30 @@ public class HocSinhInfoService {
         return hocSinhInfoRepository.findById(id);
     }
 
- public HocSinhInfo saveHocSinhInfo(HocSinhInfo hocSinhInfo) {
-        return hocSinhInfoRepository.save(hocSinhInfo);
- }
+    public HocSinhInfo createHocSinhInfo(HocSinhInfoDTO hocSinhInfoDTO) {
+        HocSinhInfo hocSinhInfo = new HocSinhInfo();
+        hocSinhInfo.setId(hocSinhInfoDTO.getId());
+        hocSinhInfo.setHoTen(hocSinhInfoDTO.getHoTen());
+        hocSinhInfo.setMaHs(hocSinhInfoDTO.getMaHs());
+        hocSinhInfo.setNgaySinh(hocSinhInfoDTO.getNgaySinh());
+        hocSinhInfo.setGioiTinh(hocSinhInfoDTO.isGioiTinh());
+        hocSinhInfo.setMaDinhDanh(hocSinhInfoDTO.getMaDinhDanh());
+        hocSinhInfo.setHinhAnh((hocSinhInfoDTO.getHinhAnh()));
+        hocSinhInfo.setTinh(hocSinhInfoDTO.getTinh());
+        hocSinhInfo.setHuyen(hocSinhInfoDTO.getHuyen());
+        hocSinhInfo.setXa(hocSinhInfoDTO.getXa());
+        hocSinhInfo.setNoiSinh(hocSinhInfoDTO.getNoiSinh());
+        hocSinhInfo.setThuongTru(hocSinhInfoDTO.getThuongTru());
+        hocSinhInfo.setTamTru(hocSinhInfoDTO.getTamTru());
+        hocSinhInfo.setDanToc(hocSinhInfoDTO.getDanToc());
+        hocSinhInfo.setTonGiao(hocSinhInfoDTO.getTonGiao());
+        hocSinhInfo.setLop(hocSinhInfoDTO.getLop());
+        hocSinhInfo.setTrangThai(hocSinhInfoDTO.isTrangThai());
+        hocSinhInfo.setNhapHoc(hocSinhInfoDTO.getNhapHoc());
+        HocSinhInfo hocSinhInfo1 = hocSinhInfoRepository.save(hocSinhInfo);
+        return hocSinhInfo1;
+    }
+
 
  public HocSinhInfo updateHocSinhInfo(Long id, HocSinhInfo hocSinhInfoDetails) {
         Optional<HocSinhInfo> optionalHocSinhInfo = hocSinhInfoRepository.findById(id);
@@ -33,7 +55,7 @@ public class HocSinhInfoService {
             existingHocSinhInfo.setHoTen(hocSinhInfoDetails.getHoTen());
             existingHocSinhInfo.setNgaySinh(hocSinhInfoDetails.getNgaySinh());
             existingHocSinhInfo.setGioiTinh(hocSinhInfoDetails.isGioiTinh());
-            existingHocSinhInfo.setCccd(hocSinhInfoDetails.getCccd());
+            existingHocSinhInfo.setMaDinhDanh(hocSinhInfoDetails.getMaDinhDanh());
             existingHocSinhInfo.setHinhAnh(hocSinhInfoDetails.getHinhAnh());
             existingHocSinhInfo.setTinh(hocSinhInfoDetails.getTinh());
             existingHocSinhInfo.setHuyen(hocSinhInfoDetails.getHuyen());
