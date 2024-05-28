@@ -79,8 +79,8 @@ public class HocSinhInfoController {
 
 
     @GetMapping("/search")
-    public List<HocSinhInfo> searchHocSinh(@RequestParam String ten) {
+    public List<HocSinhInfo> searchHocSinh(@RequestParam String ten,@RequestParam String mahs,@RequestParam boolean gioitinh) {
 
-     return hocSinhInfoService.search(ten);
+     return hocSinhInfoService.search(ten,mahs,gioitinh);
     }
 }
