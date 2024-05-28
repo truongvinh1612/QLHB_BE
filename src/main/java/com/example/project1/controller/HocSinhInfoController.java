@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,6 +53,24 @@ public class HocSinhInfoController {
             }
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Error uploading image: " + e.getMessage());
+        }
+    }
+
+    @PutMapping("/{id}/edit-image")
+    public ResponseEntity<String> editImage(@PathVariable Long id, @RequestParam("image") MultipartFile imageFile) {
+        try {
+            Optional<HocSinhInfo> studentOptional = hocSinhInfoService.getHocSinhById(id);
+            if (studentOptional.isPresent()) {
+                byte[] imageBytes = imageFile.getBytes();
+                HocSinhInfo updatedStudent = hocSinhInfoService.saveStudentWithImage(studentOptional.get(), imageBytes);
+                return ResponseEntity.ok("Image edited successfully for student ID: " + updatedStudent.getId());
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (IOException e) {
+            return ResponseEntity.status(500).body("Error reading image file: " + e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error editing image: " + e.getMessage());
         }
     }
 
