@@ -85,7 +85,7 @@ public class HocSinhInfoService {
         hocSinhInfoRepository.deleteById(id);
     }
 
-    public List<HocSinhInfo> search(String ten,String mahs,boolean gioitinh) {
-        return hocSinhInfoRepository.search(ten,mahs,gioitinh);
+    public List<HocSinhInfo> search(String hoTen,String maHs,Boolean gioiTinh, String danToc, String tenLop, Boolean trangThai) {
+        return hocSinhInfoRepository.search(hoTen,maHs,gioiTinh,danToc,tenLop, trangThai);
     }
 }

@@ -76,11 +76,9 @@ public class HocSinhInfoController {
         return ResponseEntity.noContent().build();
     }
 
-
-
     @GetMapping("/search")
-    public List<HocSinhInfo> searchHocSinh(@RequestParam String ten,@RequestParam String mahs,@RequestParam boolean gioitinh) {
-
-     return hocSinhInfoService.search(ten,mahs,gioitinh);
+    public List<HocSinhInfo> searchHocSinh(@RequestParam String hoTen,@RequestParam String maHs,@RequestParam(required = false) Boolean gioiTinh, @RequestParam String danToc, @RequestParam String tenLop, @RequestParam(required = false) Boolean trangThai) {
+        return hocSinhInfoService.search(hoTen,maHs,gioiTinh, danToc, tenLop, trangThai);
     }
+
 }
