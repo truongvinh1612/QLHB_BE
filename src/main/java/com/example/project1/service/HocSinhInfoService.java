@@ -48,10 +48,9 @@ public class HocSinhInfoService {
     }
 
     public HocSinhInfo saveStudentWithImage(HocSinhInfo hocSinhInfo, byte[] imageBytes) {
-        hocSinhInfo.setHinhAnh(imageBytes); // Assuming you have an `image` field in `HocSinhInfo`
+        hocSinhInfo.setHinhAnh(imageBytes);
         return hocSinhInfoRepository.save(hocSinhInfo);
     }
-
 
     public byte[] getStudentImage(Long id) {
         Optional<HocSinhInfo> hocSinhInfo = hocSinhInfoRepository.findById(id);

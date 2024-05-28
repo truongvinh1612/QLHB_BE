@@ -71,15 +71,25 @@ public class GiaoVienInfoController {
         return ResponseEntity.ok(updatedGiaoVien);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteGiaoVien(@PathVariable Long id) {
+        giaoVienInfoService.deleteGiaoVien(id);
+        return ResponseEntity.noContent().build();
+    }
+
     @DeleteMapping("/delete")
-    public ResponseEntity<Void> deleteGiaoVien(@RequestParam String maGV) {
-        if (giaoVienInfoService.findByMaGv(maGV).isPresent()) {
-            giaoVienInfoService.deleteGiaoVienByMaGv(maGV);
+    public ResponseEntity<String> deleteGiaoVien(@RequestParam(value = "maGv") String maGv) {
+        Optional<GiaoVienInfo> giaoVienInfo = giaoVienInfoService.findByMaGv(maGv);
+        if (giaoVienInfo.isPresent()) {
+            giaoVienInfoService.deleteGiaoVienByMaGv(maGv);
             return ResponseEntity.noContent().build();
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Teacher with maGV: " + maGv + " not found.");
         }
     }
 
-
+    @GetMapping("/search")
+    public List<GiaoVienInfo> searchGiaoVien(@RequestParam String hoTen,@RequestParam String maGv,@RequestParam(required = false) Boolean gioiTinh, @RequestParam String trinhDo) {
+        return giaoVienInfoService.search(hoTen,maGv,gioiTinh, trinhDo);
+    }
 }

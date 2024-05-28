@@ -24,3 +24,5 @@ public interface HocSinhInfoRepository extends JpaRepository<HocSinhInfo, Long> 
     List<HocSinhInfo> search(@Param("hoTen") String hoTen, @Param("maHs") String maHs, @Param("gioiTinh") Boolean gioiTinh, @Param("danToc") String danToc, @Param("tenLop") String tenLop, @Param("trangThai") Boolean trangThai);
 
 }
+
+

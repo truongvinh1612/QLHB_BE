@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Blob;
 import java.util.Date;
 
 @Entity
@@ -30,8 +31,9 @@ public class HocSinhInfo {
 
     @Column(name = "ma_dinh_danh")
     private String maDinhDanh;
+
     @Lob
-    @Column(name = "hinh_anh", columnDefinition="BLOB")
+    @Column(name = "hinh_anh", columnDefinition = "LONGBLOB")
     private byte[] hinhAnh;
 
     @Column(name = "tinh")

@@ -8,6 +8,8 @@ import com.example.project1.repository.GiaoVienInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,12 +31,10 @@ public class GiaoVienInfoService {
     public Optional<GiaoVienInfo> getGiaoVienById(Long id) {
         return giaoVienInfoRepository.findById(id);
     }
-
     @Transactional
     public GiaoVienInfo saveGiaoVien(GiaoVienInfo giaoVienInfo) {
         return giaoVienInfoRepository.save(giaoVienInfo);
     }
-
     public GiaoVienInfo createGiaoVien(GiaoVienInfoDTO giaoVienInfoDTO){
         GiaoVienInfo giaoVienInfo = new GiaoVienInfo();
         giaoVienInfo.setMaGv(giaoVienInfoDTO.getMaGv());
@@ -58,8 +58,8 @@ public class GiaoVienInfoService {
         GiaoVienInfo giaoVienInfo1 = giaoVienInfoRepository.save(giaoVienInfo);
         return giaoVienInfo1;
     }
-    public GiaoVienInfo saveTeacherWithImage(GiaoVienInfo giaoVienInfo, byte[] image) {
-        giaoVienInfo.setHinhAnh(image);
+    public GiaoVienInfo saveTeacherWithImage(GiaoVienInfo giaoVienInfo, byte[] imageBytes) {
+        giaoVienInfo.setHinhAnh(imageBytes);
         return giaoVienInfoRepository.save(giaoVienInfo);
     }
 
@@ -98,13 +98,18 @@ public class GiaoVienInfoService {
         }
         giaoVienInfoRepository.deleteById(id);
     }
-    public Optional<GiaoVienInfo> findByMaGv(String maGv) {
-        return giaoVienInfoRepository.findByMaGv(maGv);
-    }
-@Transactional
-    public void deleteGiaoVienByMaGv(String ma_gv) {
-        giaoVienInfoRepository.deleteByMaGv(ma_gv);
+
+    public Optional<GiaoVienInfo> findByMaGv(String maGV) {
+        return giaoVienInfoRepository.findByMaGv(maGV);
     }
 
+    @Transactional
+    public void deleteGiaoVienByMaGv(String maGV) {
+        giaoVienInfoRepository.deleteByMaGv(maGV);
+    }
+
+    public List<GiaoVienInfo> search(String hoTen,String maGv,Boolean gioiTinh, String trinhDo) {
+        return giaoVienInfoRepository.search(hoTen,maGv,gioiTinh,trinhDo);
+    }
 }
 
