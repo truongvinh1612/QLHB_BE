@@ -111,5 +111,12 @@ public class GiaoVienInfoService {
     public List<GiaoVienInfo> search(String hoTen,String maGv,Boolean gioiTinh, String trinhDo) {
         return giaoVienInfoRepository.search(hoTen,maGv,gioiTinh,trinhDo);
     }
+
+    @Transactional
+    public void deleteMultipleGiaoVienInfos(List<Long> ids) {
+        for (Long id : ids) {
+            giaoVienInfoRepository.deleteById(id);
+        }
+    }
 }
 

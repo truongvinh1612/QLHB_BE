@@ -3,6 +3,7 @@ package com.example.project1.service;
 import com.example.project1.enity.HocSinhInfo;
 import com.example.project1.enity.HocSinhInfoDTO;
 import com.example.project1.repository.HocSinhInfoRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,7 +57,7 @@ public class HocSinhInfoService {
         Optional<HocSinhInfo> hocSinhInfo = hocSinhInfoRepository.findById(id);
         return hocSinhInfo.map(HocSinhInfo::getHinhAnh).orElse(null);
     }
- public HocSinhInfo updateHocSinhInfo(Long id, HocSinhInfo hocSinhInfoDetails) {
+    public HocSinhInfo updateHocSinhInfo(Long id, HocSinhInfo hocSinhInfoDetails) {
         Optional<HocSinhInfo> optionalHocSinhInfo = hocSinhInfoRepository.findById(id);
         if (optionalHocSinhInfo.isPresent()) {
             HocSinhInfo existingHocSinhInfo = optionalHocSinhInfo.get();
@@ -88,4 +89,11 @@ public class HocSinhInfoService {
     public List<HocSinhInfo> search(String hoTen,String maHs,Boolean gioiTinh, String danToc, String tenLop, Boolean trangThai) {
         return hocSinhInfoRepository.search(hoTen,maHs,gioiTinh,danToc,tenLop, trangThai);
     }
+    @Transactional
+    public void deleteMultipleHocSinhInfos(List<Long> ids) {
+        for (Long id : ids) {
+            hocSinhInfoRepository.deleteById(id);
+        }
+    }
+
 }

@@ -99,5 +99,13 @@ public class HocSinhInfoController {
     public List<HocSinhInfo> searchHocSinh(@RequestParam String hoTen,@RequestParam String maHs,@RequestParam(required = false) Boolean gioiTinh, @RequestParam String danToc, @RequestParam String tenLop, @RequestParam(required = false) Boolean trangThai) {
         return hocSinhInfoService.search(hoTen,maHs,gioiTinh, danToc, tenLop, trangThai);
     }
-
+    @DeleteMapping("/delete-multiple")
+    public ResponseEntity<Void> deleteMultipleHocSinh(@RequestBody List<Long> ids) {
+        try {
+            hocSinhInfoService.deleteMultipleHocSinhInfos(ids);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }

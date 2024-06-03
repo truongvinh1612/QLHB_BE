@@ -92,4 +92,13 @@ public class GiaoVienInfoController {
     public List<GiaoVienInfo> searchGiaoVien(@RequestParam String hoTen,@RequestParam String maGv,@RequestParam(required = false) Boolean gioiTinh, @RequestParam String trinhDo) {
         return giaoVienInfoService.search(hoTen,maGv,gioiTinh, trinhDo);
     }
+    @DeleteMapping("/delete-multiple")
+    public ResponseEntity<Void> deleteMultipleGiaoVien(@RequestBody List<Long> ids) {
+        try {
+            giaoVienInfoService.deleteMultipleGiaoVienInfos(ids);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }
